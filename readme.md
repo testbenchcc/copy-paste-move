@@ -11,7 +11,7 @@ CSV-driven UI input CLI for Windows. Automates typing, hotkeys, and clicks in an
   - **`wait_k`**: milliseconds
   - **`click_k`**: coordinates `XxY` or `X,Y`
 - **Fixed click coords** directly in header: `click-100x1200_1`
-- **Global hotkeys**: `Ctrl+Alt+P` pause/resume, `Ctrl+Alt+S` stop
+- **Global hotkeys**: `Ctrl+Shift+/` pause/resume, `Ctrl+Shift+.` stop
 - **Dry run** mode prints planned actions without sending input
 - **F-keys support**: Single-key presses including `f1`–`f12`, `esc`, arrows, navigation keys
 - **Multi-section CSVs**: Multiple header+data sections in one file separated by a blank row. Each section must start with a header row.
@@ -82,3 +82,7 @@ Means each row will: select all, paste text1, tab, paste text2, tab, paste text3
 ## Changelog
 - 2025-10-21: Add single-key support (`f1..f12`, navigation keys). Remove stray token at EOF in `main.py`.
 - 2025-10-21: Support multi-section CSVs separated by a blank row.
+
+## Issues to look into
+- Blank header cells collapse column alignment
+  When a header row is read, all empty cells are stripped out before parse_header runs. Later, data rows are truncated or padded to match the resulting token count. If someone intentionally leaves blank columns for spacing (e.g., to align with the UI), those blanks disappear, causing the subsequent data cells to shift left and feed the wrong actions. For example, a header like ["click_1", "", "text_2"] will be reduced to two tokens, so the third data value is lost and text_2 receives an empty string.

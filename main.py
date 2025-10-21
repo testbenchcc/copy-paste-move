@@ -100,8 +100,8 @@ def install_hotkeys():
         STOP_REQUESTED.set()
         print("[HOTKEY] Stop requested. Finishing current action and exiting.")
 
-    keyboard.add_hotkey("ctrl+alt+p", toggle_pause)
-    keyboard.add_hotkey("ctrl+alt+s", request_stop)
+    keyboard.add_hotkey("ctrl+shift+/", toggle_pause)
+    keyboard.add_hotkey("ctrl+shift+.", request_stop)
 
 
 def bring_window_to_front(fragment: Optional[str]):
